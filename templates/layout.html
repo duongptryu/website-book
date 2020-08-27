@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,800&family=Playfair+Display:wght@800&family=Roboto+Slab:wght@800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gotu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap" rel="stylesheet">
+    {% block head %}
+
+    {% endblock %}
+    <title>{% block title %} {% endblock %}</title>
+</head>
+<style>
+    .more {
+        margin-bottom: 20px;
+    }
+
+    .more > .card:hover {
+        padding: 1px;
+    }
+</style>
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('#search').onclick = () => {
+        window.location.href = "{{ url_for('search') }}";
+    };
+});
+</script> -->
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="logo">
+                <a href="{{ url_for('index') }}">DuHu
+                    <span class="dotcom"><b>.book</b></span></a>
+            </div>
+            <div class="duhu-right">
+                <i class="ion-android-person"></i>
+                <a href="#">Hello {{ name }} </a>
+
+                <i class="ion-android-navigate"></i>
+                <a href="{{ url_for('logout') }}"> Logout</a>
+            </div>
+        </div>
+        <section class="section">
+            <div class="row">
+                <div class="menu">
+                    <nav>
+                        <ul class="nav-list">
+                            <li><a href="{{ url_for('index') }}">Homepage</a></li>
+                            <li>
+                                <a href="#">Genres</a>
+                                <ul class="genre">
+                                    <li>
+                                        <a href="{{ url_for('category', id=1) }}">Art & Music</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=2) }}">Bigraphies</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=3) }}">Bussiness</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=4) }}">Comic</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=5) }}">Computer & Tech</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=6) }}">Cooking</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=7) }}">Entertainment</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=8) }}">Gay & Lesbian</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=9) }}">Kids</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=10) }}">History</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=11) }}">Horror</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Author
+                                </a>
+                                <ul class="author">
+                                    <li>
+                                        <a href="#">J.K Rowling</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Marie Curie</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Bill Gate</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Jack Ma</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">B. Obama</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Nick Vuijic</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Country
+                                </a>
+                                <ul class="country">
+                                    <li>
+                                        <a href="#">Vietnam</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Japan</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">France</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">America</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Australia</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">England</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">India</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Review</a>
+                            </li>
+                            <li>
+                                <a href="#">Contact</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!------------------------------------------------------------------------------>
+                <div class="search">
+                    <div class="search-box">
+                    
+                        <input class="search-txt" type="text" name="data_search" placeholder="Type to search">
+                        <a href="" class="search-btn"><i class="search-btn"></i></a>
+                    
+                    </div>
+                </div>
+            </div>
+    </div>
+    </section>
+    {% block body %}
+
+    {% endblock %}
+    <div class="col-sm-3">
+        <p>“ Books are the ultimate Dumpees: put them down and they’ll wait for you forever; pay attention to
+            them
+            and they always love you back. ”</p>
+        <i>- Jorge Luis Borges -</i>
+        <div class="scroll">
+            <p>What do genres you prefer?</p>
+            <nav class="scroll-nav">
+                <ul>
+                    <li><a href="#">Fiction</a>
+                        <ul class="sub-li">
+                            <li><a href="#">Oona Out of Order</a></li>
+                            <li><a href="#">TGentle on My Mind: In Sickness and in Health with Glen Campbell</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="">Horror</a>
+                        <ul class="sub-li">
+                            <li><a href="#">The Lonely Heart of Maybelle Lane</a></li>
+                            <li><a href="#">Diary of a Dummy</a></li>
+                            <li><a href="#">Red Sky Over Hawaii</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Novel</a>
+                        <ul class="sub-li">
+                            <li><a href="#">More Myself: A Journey</a></li>
+                            <li><a href="#">The Storm Sister (The Seven Sisters #2)</a></li>
+                            <li><a href="#">The Mirror & the Light</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Romance</a>
+                        <ul class="sub-li">
+                            <li><a href="#">Days of Distraction</a></li>
+                            <li><a href="#">Seven Years of Darkness</a></li>
+                            <li><a href="#">The Mirror & the Light</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Legend</a>
+                        <ul class="sub-li">
+                            <li><a href="#">Deacon King Kong</a></li>
+                            <li><a href="#">Please Kill Me: The Uncensored Oral History of Punk</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Comic</a>
+                        <ul class="sub-li">
+                            <li><a href="#">Days of Distraction</a></li>
+                            <li><a href="#">This Is Your Brain on Music: The Science of a Human Obsession</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <!-------------------------------------------------------------------------------------->
+            <p>Which authors do you like?</p>
+            <div class="authorName">Books by Cassandra Clare</div>
+            <div class="card-deck-wrapper">
+                <div class="card-deck">
+                    {% for book in author1 %}
+                    <a href="{{ url_for('detail', isbn = book['isbn']) }}">
+                        <div class="card">
+                            <img src="http://covers.openlibrary.org/b/isbn/{{ book['isbn'] }}-S.jpg"
+                                style="width: 63px;height: 80px;" alt="">
+                        </div>
+                    </a>
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="authorName">Books by Nicholas Sparks</div>
+            <div class="card-deck-wrapper">
+                <div class="card-deck">
+                    {% for book in author2 %}
+                    <a href="{{ url_for('detail', isbn = book['isbn']) }}">
+                        <div class="card">
+                            <img src="http://covers.openlibrary.org/b/isbn/{{ book['isbn'] }}-S.jpg"
+                                style="width: 63px;height: 80px;" alt="">
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="authorName">Books by Robin Hobb</div>
+            <div class="card-deck-wrapper">
+                <div class="card-deck">
+                    {% for book in author3 %}
+                    <a href="{{ url_for('detail', isbn = book['isbn']) }}">
+                        <div class="card">
+                            <img src="http://covers.openlibrary.org/b/isbn/{{ book['isbn'] }}-S.jpg"
+                                style="width: 63px;height: 80px;" alt="">
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="authorName">Books by Kenner</div>
+            <div class="card-deck-wrapper">
+                <div class="card-deck">
+                    {% for book in author4 %}
+                    <a href="{{ url_for('detail', isbn = book['isbn']) }}">
+                        <div class="card">
+                            <img src="http://covers.openlibrary.org/b/isbn/{{ book['isbn'] }}-S.jpg"
+                                style="width: 63px;height: 80px;" alt="">
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <p>Inspirational Quotes</p>
+            </div>
+        </div>
+        <p>“To the well-organized mind, death is but the next great adventure.”</p>
+        <i>- J.K Rowling -</i>
+        <p>“You can never get a cup of tea large enough or a book long enough to suit me.”</p>
+        <i>- Shel Silverstein -</i>
+        <p>“ Books are the ultimate Dumpees: put them down and they’ll wait for you forever; pay attention to
+            them
+            and they always love you back. ”</p>
+        <i>- Jorge Luis Borges -</i>
+        <p>“You have brains in your head. You have feet in your shoes. You can steer yourself any direction you
+            choose. You're on your own. And you know what you know. And YOU are the one who'll decide where to
+            go...”</p>
+        <i>- Theore Roosevelt -</i>
+
+
+
+        <!---------------------------------------------------------------------->
+    </div>
+</div>
+
+<!------------------------------------------------------------------------->
+    <div class="row footer">
+        <div class="col-sm-2">
+            <h5>Company</h5>
+            <a href="#">About us</a>
+            <a href="#">Careers</a>
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col-sm-2">
+            <h5>Work with us</h5>
+            <a href="#">Authors</a>
+            <a href="#">Advertise</a>
+            <a href="#">Authors</a>
+            <a href="#">Ad Blogs</a>
+            <a href="#">API</a>
+        </div>
+        <div class="col-sm-4">
+            <h5>Connect</h5>
+            <i class="ion-ios-email-outline"></i>
+            <span> duhu.book@fpt.edu.vn</span><br>
+            <i class="ion-ios-telephone-outline"></i>
+            <span>034567899</span><br>
+            <i class="ion-social-facebook-outline"></i>
+            <span>DuHu.Book</span><br>
+            <i class="ion-social-twitter-outline"></i>
+            <span>@Bookbook</span>
+        </div>
+        <div class="col-sm-4">
+            <h5>Mobile Version</h5>
+            <img class="imgFooter" src="android.png" alt="" style="width: 120px; height: 50px;">
+            <img class="imgFooter" src="ios.png" alt="" style="width: 120px; height: 50px;">
+        </div>
+        <div style="padding-left: 40%;">Copyright@DuHu.Book</div>
+    </div>
+    <!-- ----------------------------------------------------------------------------------- -->
+    </div>
+
+</body>
+
+</html>
+    
+</body>
+</html>

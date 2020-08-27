@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+</head>
+<style>
+    h1{
+        font-size: 100px;
+        text-align: center;
+        color: red;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    div{
+        color: teal;
+        font-size: 50px;
+        left: 30%;
+        border: 3px solid blue;
+        position: absolute;
+        
+    }
+</style>
+<body>
+    <h1>You don't have permission to access this page</h1>
+    <div class="direct">
+    <a href="{{ url_for('login') }}">Click here </a> to direct to login page
+</div>
+</body>
+</html>

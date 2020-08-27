@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,800&family=Playfair+Display:wght@800&family=Roboto+Slab:wght@800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
+    <title>Login</title>
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('#button').onclick = () => {
+            const username = document.querySelector('#username').value;
+            const password = document.querySelector('#password').value;
+
+            if(username.length == 0 || password.length == 0){
+                alert("Please, input information");
+                return;
+            }else{
+                const request = new XMLHttpRequest();
+                request.open('POST', '/checkLogin');
+                request.onload = () => {
+                    const data = JSON.parse(request.responseText);
+                    if(data['status'] == true){
+                        alert(data['message']);
+                        window.location.href = "{{ url_for('index') }}";
+                    }else{
+                        alert(data['message']);
+                        return;
+                    };
+                };
+                const data = new FormData();
+                data.append('username', username);
+                data.append('password', password);
+                request.send(data);
+            };
+        };
+    });
+</script>
+<body>
+
+    <div class="cont">
+        <div class="form">
+            <h2>Sign In</h2>
+            <label for="">
+                <span>Username</span>
+                <input type="text" name="email" id="username" >
+            </label>
+            <label for="">
+                <span>Password</span>
+                <input type="password" name="password" id="password">
+            </label>
+            <button class="submit" type="button" id="button">Sign In</button>
+            <a href="{{ url_for('forgotPassword') }}"><p class="forgot-pass">Forgot Password?</p></a>
+            <a href="{{ url_for('registration') }}"><p class="forgot-pass">Don't have account</p></a>
+        </div>
+        
+    </div>
+    
+</body>
+</html>

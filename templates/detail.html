@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,800&family=Playfair+Display:wght@800&family=Roboto+Slab:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gotu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/swiper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/book.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/swiper.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/detail.css')}}">
+    <title>Book Store</title>
+</head>
+<style>
+    .content-comment{
+        padding-left: 50px;
+    }
+    .comment-box{
+        border-bottom: 1px solid blueviolet;
+        margin-bottom: 5px;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('#comment-btn').onclick = () => {
+            const comment = document.querySelector('#comment').value;
+            if(comment.length == 0){
+                alert('Ban chua comment');
+                return;
+            }
+            const request = new XMLHttpRequest();
+
+            request.open('POST', '/comment');
+
+            request.onload = () => {
+                const data = JSON.parse(request.responseText);
+                if(data['status'] == true){
+                    let abc = document.querySelector('#abc');
+                    if(abc.style.display != 'none'){
+                        abc.style.display = 'none';
+                    };
+
+                    const div = document.createElement('div');
+                    div.className = 'comment-box'
+                    const h3 = document.createElement('h4');
+                    const p = document.createElement('p');
+                    const hr = document.createElement('hr');
+                    p.className='content-comment';
+                    div.append(h3);
+                    div.append(hr);
+                    div.append(p);
+                    h3.innerHTML = 'User: ' + data['name'];
+                    p.innerHTML = comment;
+                    document.querySelector('#list-comment').append(div);
+                    document.querySelector('#comment').value = "";
+                }else{
+                    alert(data['message']);
+                    document.querySelector('#comment').value = "";
+                    return;
+                };
+            };
+            const isbn = window.location.pathname.split('/')[2];
+            const data = new FormData();
+            data.append('comment', comment);
+            data.append('isbn', isbn);
+            request.send(data);
+        };
+
+        document.querySelector('#evaluation').onclick = () => {
+            document.querySelector('#form-evaluation').style.display = 'block';
+        };
+
+        document.querySelector('#closebtn').onclick = () => {
+            document.querySelector('#form-evaluation').style.display = 'none';
+        };
+
+
+        document.querySelector('#rate').onclick = () => {
+            const star = document.querySelector('#star').value;
+            const request = new XMLHttpRequest();
+
+            request.open('POST', '/rate');
+
+            request.onload = () => {
+                const data = JSON.parse(request.responseText);
+                if(data['status'] == true){
+                    document.querySelector('#avenger').innerHTML = data['star'];
+                    alert(data['message']);
+                    document.querySelector('#form-evaluation').style.display = 'none';
+                }else{
+                    alert(data['message']);
+                    document.querySelector('#form-evaluation').style.display = 'none';
+                    return;
+                };
+            };
+            const isbn = window.location.pathname.split('/')[2];
+            const data = new FormData();
+            data.append('star',star);
+            data.append('isbn', isbn);
+            request.send(data);
+        };
+
+    });
+</script>
+<body>
+    <!--------------------------------------------------------------------->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="logo">
+                <a href="#">DuHu
+                    <span class="dotcom"><b>.book</b></span></a>
+            </div>
+            <div class="duhu-right">
+                <i class="ion-android-person"></i>
+                <a href="#">Hello {{ name }} </a>
+
+                <i class="ion-android-navigate"></i>
+                <a href="{{ url_for('logout') }}"> Logout</a>
+            </div>
+        </div>
+        <section class="section">
+            <div class="row">
+                <div class="menu">
+                    <nav>
+                        <ul class="nav-list">
+                            <li><a href="#">Homepage</a></li>
+                            <li>
+                                <a href="#">Genres</a>
+                                <ul class="genre">
+                                    <li>
+                                        <a href="{{ url_for('category', id=1) }}">Art & Music</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=2) }}">Bigraphies</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=3) }}">Bussiness</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=4) }}">Comic</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=5) }}">Computer & Tech</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=6) }}">Cooking</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=7) }}">Entertainment</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=8) }}">Gay & Lesbian</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=9) }}">Kids</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=10) }}">History</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('category', id=11) }}">Horror   </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Author
+                                </a>
+                                <ul class="author">
+                                    <li>
+                                        <a href="#">J.K Rowling</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Marie Curie</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Bill Gate</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Jack Ma</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">B. Obama</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Nick Vuijic</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Country
+                                </a>
+                                <ul class="country">
+                                    <li>
+                                        <a href="#">Vietnam</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Japan</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">France</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">America</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Australia</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">England</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">India</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Review</a>
+                            </li>
+                            <li>
+                                <a href="#">Contact</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!------------------------------------------------------------------------------>
+                <div class="search">
+                    <div class="search-box">
+                        <input class="search-txt" type="text" placeholder="Type to search">
+                        <a href="" class="search-btn"></a>
+                        <i class="ion-search"></i>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </section>
+      <!------------------------------------------------------------------------------>
+      <div class="row">
+          <div class="col-sm-4">
+              <br>
+                 <img src="http://covers.openlibrary.org/b/isbn/{{ book['isbn'] }}-L.jpg" style="width: 328px;height: 500px;" alt="">
+          </div>
+          <div class="col-sm-6">
+              <h1>{{ book['title'] }}</h1>
+              <p class="rate"><br>Rate:
+                {% for i in range(star_count) %}
+                <i class="ion-star"></i>
+                {% endfor %}
+                <i class="ion-android-star-half"></i>
+                {% for i in range(4-star_count)%}
+                <i class="ion-ios-star-outline"></i>
+                {% endfor %}
+            </p>
+            <p>Genre: {{ category }}</p>
+            <p>Author: {{ book['author']}}</p>
+            <p>Price: {{ book['price'] }}$</p>
+        <!-------------------------------------------------------------------------------->
+            <a  class = "button"href="#">
+                Pick it!    
+            </a>
+            <p>Summarize: LA literary sensation and runaway bestseller, this brilliant debut novel presents with seamless authenticity and exquisite of one of Japan's most celebrated geisha.In Memoirs of a Geisha and where love is scorned as illusion. It is a unique and triumphant work of fiction - at once romantic, erotic, suspenseful - and completely unforgettable. <span id="dots">...</span><span id="more">In Memoirs of a Geisha, we enter a world where appearances are paramount; where a girl's virginity is auctioned to the highest bidder. It is a unique and triumphant work of fiction - at once romantic, erotic, suspenseful - and completely unforgettable.</span></p>
+            <a onclick="myFunction()" id="myBtn">Read more</a>
+
+                    <script>
+                    function myFunction() {
+                    var dots = document.getElementById("dots");
+                    var moreText = document.getElementById("more");
+                    var btnText = document.getElementById("myBtn");
+
+                    if (dots.style.display === "none") {
+                        dots.style.display = "inline";
+                        btnText.innerHTML = "Read more"; 
+                        moreText.style.display = "none";
+                    } else {
+                        dots.style.display = "none";
+                        btnText.innerHTML = "Read less"; 
+                        moreText.style.display = "inline";
+                    }
+                    }
+                    </script>
+
+        <!-------------------------------------------------------------------------------->  
+          </div>
+          <div class="col-sm-2"></div>
+      </div>
+      <br>
+       <!------------------------------------------------------------------------------>
+       <div class="row">
+                <div class="col-sm-8">
+                <h3>Books Are Viewd Together</h3>
+                </div>
+        </div>
+        <div class="col-sm-4"></div>
+        </div>
+    <!------------------------------------------------------------------------------------>
+         <div class="row">
+             <div class="col-sm-10">
+                 <div class="row">
+                    {% for book in book_same_author %}
+                    <div class="col-lg-3">
+                        
+                        <div class="card" style="position: relative;">
+                            <a href="{{ url_for('detail', isbn = book['isbn']) }}">
+                            <img src="http://covers.openlibrary.org/b/isbn/{{ book['isbn'] }}-M.jpg" style="width: 170px;height: 260px; position: relative; left: 7%; padding-bottom: 10px;" alt="">
+                        </a>
+                            <div class="card-block">
+                                <p class="card-txt"><a href="{{ url_for('detail', isbn = book['isbn']) }}">{{ book['title'] }}</a> 
+                                    <br><a href="{{ url_for('detail', isbn = book['isbn']) }}">Price: {{ book['price'] }}$</a>
+                                    <br> <a href="{{ url_for('detail', isbn = book['isbn']) }}">Rate: 
+                                        <i class="ion-star"></i>
+                                        <i class="ion-star"></i>
+                                        <i class="ion-star"></i>
+                                        <i class="ion-android-star-half"></i>
+                                        <i class="ion-ios-star-outline"></i>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    {% endfor %}
+                </div>
+                </div>
+                    
+                
+             
+             <div class="col-sm-2"></div>
+         </div>
+       <!------------------------------------------------------------------------------>
+      <br>
+      <div class="row">
+          <div class="col-sm-8">
+              <h3>Detail Information</h3>
+            <table class="content-table">
+                <thead >
+                    <tr>
+                        <th>Rank</th>
+                      <th>Content</th>
+                      <th>Infomation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Publish Company</td>
+                        <td>Alphabooks</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Date Publish</td>
+                        <td>20/02/1020</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                      <td>Size</td>
+                      <td>12 x 18 cm</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>Page Number</td>
+                      <td>234</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Cover</td>
+                    <td>Hard Cover</td>
+                </tr>
+                  <tr>
+                      <td>5</td>
+                      <td>Public</td>
+                      <td>World Star Cloud</td>
+                  </tr>
+                </tbody>
+            </table>
+          </div>
+          <div class="col-sm-4"></div>
+      </div>
+      <!------------------------------------------------------------------------------> 
+      <br>
+      <div class="row">
+        <h3>Customer Respond</h3>
+      </div>     
+      <div class="row">
+          <div class="col-sm-3">
+              <h5>Medium Value</h5>
+              <h5 style="color: red; font-weight: bold;" id="avenger">{{ star }}</h5>
+              <a href="#" id="evaluation">
+                {% for i in range(star_count) %}
+                <i class="ion-star"></i>
+                {% endfor %}
+                <i class="ion-android-star-half"></i>
+                {% for i in range(4-star_count)%}
+                <i class="ion-ios-star-outline"></i>
+                {% endfor %}
+            </a>
+          </div>
+          <div class="evaluation" id="form-evaluation">
+            <span class="closebtn" id="closebtn">Close</span>
+            <div class="content-evaluation">
+                <h3>Which star do you want rate</h3>
+                <select name="" id="star">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <button class="btn btn-primary" id="rate">Submit</button>
+            </div>
+          </div>
+          <div class="col-sm-7">
+              <h5>Percentage</h5>
+              <div class="container">
+            <div class="progress" style="width: 500px">
+                <div class="progress-bar bg-success" style="width:85%;">85%</div>
+            </div><br>
+            <div class="progress" style="width: 500px">
+                <div class="progress-bar bg-success" style="width:65%;">65%</div>
+            </div><br>
+            <div class="progress" style="width: 500px">
+                <div class="progress-bar bg-success" style="width:45%;">45%</div>
+            </div>
+                </div>
+          </div>
+          <div class="col-sm-2"></div>
+      </div> 
+      <!------------------------------------------------------------------------------>
+      <br>
+      <div class="row">
+          <h3>Feedback & Comment</h3>
+          
+      </div>
+      <div class="row">
+        <div class="col-sm-10">
+            <div class="form-group">
+                <input type="text" style="width: 900px;" id="comment">
+                <button class="btn btn-primary" id="comment-btn">Comment</button>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-10" id="list-comment">
+          <div id='abc'>
+            {% if review_count == 0 %}
+            
+                <p style="color: red; font-size: 50px;">Has 0 review now </p>
+            
+            {% else %}
+        </div>
+        
+                {% for tmp in review %}
+                <div class="comment-box">
+                    <h4>User: {{ tmp['fullname'] }}</h4>
+                    <hr>
+                    <p class="content-comment">{{ tmp['review'] }}</p>
+                   
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+      <!------------------------------------------------------------------------------> 
+      <div class="row footer">
+        <div class="col-sm-2">
+            <h5>Company</h5>
+            <a href="#">About us</a>
+            <a href="#">Careers</a>
+            <a href="#">Terms</a>
+            <a href="#">Privacy</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col-sm-2">
+            <h5>Work with us</h5>
+            <a href="#">Authors</a>
+            <a href="#">Advertise</a>
+            <a href="#">Authors</a>
+            <a href="#">Ad Blogs</a>
+            <a href="#">API</a>
+        </div>
+        <div class="col-sm-4">
+            <h5>Connect</h5>
+            <i class="ion-ios-email-outline"></i>
+            <span> duhu.book@fpt.edu.vn</span><br>
+            <i class="ion-ios-telephone-outline"></i>
+            <span>034567899</span><br>
+            <i class="ion-social-facebook-outline"></i>
+            <span>DuHu.Book</span><br>
+            <i class="ion-social-twitter-outline"></i>
+            <span>@Bookbook</span>
+        </div>
+        <div class="col-sm-4">
+            <h5>Mobile Version</h5>
+            <img class="imgFooter" src="android.png" alt="" style="width: 120px; height: 50px;">
+            <img class="imgFooter" src="ios.png" alt="" style="width: 120px; height: 50px;">
+        </div>
+        <div style="padding-left: 40%;">Copyright@DuHu.Book</div>
+    </div>
+      <!------------------------------------------------------------------------------> 
+      <!------------------------------------------------------------------------------> 
+
+    </div>
+</body>
+</html>

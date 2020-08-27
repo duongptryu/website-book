@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,800&family=Playfair+Display:wght@800&family=Roboto+Slab:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gotu&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap" rel="stylesheet">
+    <script src="/static/min.js"></script>
+    <link rel="stylesheet" href="/css/swiper.min.css">
+    <link rel="stylesheet" href="/css/book.css">
+    <title>Book Store</title>
+</head>
+<body>
+    <!--------------------------------------------------------------------->
+    <div class="row">
+        <div class="logo">
+            <a href="#">DuHu
+            <span class="dotcom"><b>.book</b></span></a>
+        </div>
+        <div class="duhu-right">
+            <i class="ion-android-person"></i>
+            <a href="#">Login </a>
+
+            <i class="ion-android-navigate"></i>
+            <a href="#"> Registration</a>
+        </div>
+    </div>
+    <!----------------------------------------------------------------------->
+    <section>
+        <div class="row">
+            <div class="menu-toggle">
+                <nav>
+                    <ul>
+                        <li><a href="#">Homepage</a></li>
+                        <li><a href="#">Category</a>
+                            <!-- <ul>
+                                <li><a href="#">Fiction</a></li>
+                                <li><a href="#">Horror</a></li>
+                                <li><a href="#">Novel</a></li>
+                                <li><a href="#">Romance</a></li>
+                                <li><a href="#">Lengend</a></li>
+                                <li><a href="#">Mythology</a></li>
+                            </ul> -->
+                        </li>
+                        <li><a href="#">Author</a>
+                            <!-- <ul>
+                                <li><a href=""></a>Vietnam</li>
+                                <li><a href=""></a>Another Country</li>
+
+                            </ul> -->
+                        </li>
+                        <li><a href="#">Country</a>
+                            <!-- <ul>
+                                <li><a href=""></a>Vietnam</li>
+                                <li><a href=""></a>Japan</li>
+                                <li><a href=""></a>United State</li>
+                                <li><a href=""></a>United Kingdom</li>
+                                <li><a href=""></a>Turkey</li>
+                            </ul> -->
+                        </li>
+                        <li><a href="#">Review</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="search">
+                <div class="search-box">
+                <input class="search-txt" type="text" placeholder="Type to search">
+                <a href="" class="search-btn"></a>
+                <i class="ion-search"></i>
+            </div>  
+            </div>
+        </div>
+    </section>
+    <!---------------------------------------------------------------------------->
+    
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"> <img src="/images/matbiec.png" alt="" style="width: 1000px;height: 500px;"></div>
+              <div class="swiper-slide"> <img src="/images/1.jpg" alt="" style="width: 1000px;height: 500px;" > </div>
+              <div class="swiper-slide"> <img src="/images/2.jpg" alt="" style="width: 1000px;height: 500px;" > </div>
+              <div class="swiper-slide"> <img src="/images/3.jpg" alt="" style="width: 1000px;height: 500px;" > </div>
+              <div class="swiper-slide"> <img src="/images/5.jpg" alt="" style="width: 1000px;height: 500px;" > </div>
+              <div class="swiper-slide"> <img src="/images/8.jpg" alt="" style="width: 1000px;height: 500px;" > </div>
+            
+    </div>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+          spaceBetween: 30,
+          centeredSlides: true,
+          autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+          },
+        //   pagination: {
+        //     el: '.swiper-pagination',
+        //     clickable: true,
+        //   },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      </script>
+      <!-------------------------------------------------------------------------------->
+    
+</body>
+</html>

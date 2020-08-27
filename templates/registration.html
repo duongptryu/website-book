@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,800&family=Playfair+Display:wght@800&family=Roboto+Slab:wght@800&display=swap"
+        rel="stylesheet">
+    <!-- <script src=" {{ url_for('static', filename='js/lol.js') }}"></script> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
+    <title>Sign up</title>
+</head>
+<style>
+    .cont1 {
+        overflow: hidden;
+        position: relative;
+        width: 650px;
+        height: 650px;
+        background: #ffffff;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector('#button').onclick = () => {
+
+        const username = document.querySelector('#username').value;
+        const password = document.querySelector('#password').value;
+        const re_password = document.querySelector('#re_password').value;
+        const email = document.querySelector('#email').value;
+        const name = document.querySelector('#name').value;
+
+        
+
+        if (username.length == 0 || password.length == 0 || re_password.length == 0 || email.length == 0 || name.lenth == 0) {
+            alert("Please complete imformation");
+            return;
+        } else {
+            if (password.length < 6) {
+                alert("Password need to large than 6 character");
+                return;
+            } else {
+                if (password != re_password) {
+                    alert("Password dissimilarity");
+                    return;
+                };
+            };
+        };
+
+        const request = new XMLHttpRequest();
+
+        request.open('POST', '/checkRegis');
+
+        request.onload = () => {
+            const data = JSON.parse(request.responseText);
+            if (data['status'] == false) {
+                alert(data['message']);
+            } else {
+                alert(data['message']);
+                window.location.href = "{{ url_for('login') }}";
+            };
+        };
+
+        const data = new FormData();
+        data.append('username', username);
+        data.append('password', password);
+        data.append('email', email);
+        data.append('name', name);
+
+        request.send(data);
+        return false;
+    };
+});
+</script>
+<body>
+    <div class="cont1">
+        <div class="form" id="form">
+
+            <h2>Sign Up</h2>
+            <label for="">
+                <span id="error">Username: </span>
+                <input type="text" id="username" autofocus maxlength="32">
+            </label>
+            <label for="">
+                <span>Password</span>
+                <input type="password" id="password" maxlength="32">
+            </label>
+            <label for="">
+                <span>Re-password</span>
+                <input type="password" id="re_password" maxlength="32">
+            </label>
+            <label for="">
+                <span>Email</span>
+                <input type="email" id="email" maxlength="255">
+            </label>
+            <label for="">
+                <span>FullName</span>
+                <input type="text" id="name" maxlength="50">
+            </label>
+            <input type="submit" class="btn btn-primary" id="button" value="Registration">
+            <a href="{{ url_for('login') }}"><input type="submit" value="Login" class="btn btn-danger"></a>
+        </div>
+    </div>
+</body>
+
+</html>

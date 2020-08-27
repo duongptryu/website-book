@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block head %}
+    <script src="{{ url_for('static', filename='js/swiper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/book.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/swiper.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/book.css')}}">
+{% endblock %}
+    {% block title %} Category- Webpage {% endblock %}
+
+    <!------------------------------------------------------------------------>
+    {% block body %}
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="row decor">
+                <p class="decor-para" data-txt="New Book - New Horizon">Search for: {{ search }} </p>
+            </div>
+            <div class="row">
+                {% for book in books %}
+                <div class="col-lg-3">
+
+                    <div class="card">
+                        <a href="{{ url_for('detail', isbn = book['isbn']) }}">
+                            <img src="http://covers.openlibrary.org/b/isbn/{{ book['isbn'] }}-M.jpg"
+                                style="width: 175px;height: 280px;" alt=""></a>
+                        <div class="card-block">
+                            <p class="card-txt"> <a
+                                    href="{{ url_for('detail', isbn = book['isbn']) }}">{{ book['title'] }}</a>
+                                <br><a href="{{ url_for('detail',isbn = book['isbn']) }}">Price:
+                                    {{ book['price'] }}$</a>
+                                <br> <a href="{{ url_for('detail', isbn = book['isbn']) }}">Rate:
+                                    <i class="ion-star"></i>
+                                    <i class="ion-star"></i>
+                                    <i class="ion-star"></i>
+                                    <i class="ion-star"></i>
+                                    <i class="ion-ios-star-outline"></i>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!------------------------------------------------------------------------------------------>
+       
+    
+    <!-- ----------------------------------------------------------------------------------- -->
+{% endblock %}
